@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine for Sarthak</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+}
+
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+.hint {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 12px 26px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin: 12px;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #ffd1dc;
+  color: #444;
+  position: absolute;
+  transition: top 0.1s, left 0.1s;
+}
+
+.dance {
+  font-size: 80px;
+  animation: dance 0.6s infinite alternate;
+}
+
+@keyframes dance {
+  0% { transform: rotate(-10deg) scale(1); }
+  100% { transform: rotate(10deg) scale(1.1); }
+}
+
+.heart {
+  position: absolute;
+  font-size: 22px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body onclick="startMusic()" onmouseover="startMusic()">
+
+<!-- 🎵 Embedded Music (base64 placeholder) -->
+<audio id="bgMusic" loop>
+  <source src="data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA..." type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>💖 Will you be my Valentine, Sarthak? 💖</h1>
+  <div class="hint">psst… there’s only one right answer 😌</div>
+  <button id="yes" onclick="yesClick()">YES 💕</button>
+  <button id="no" onmouseover="moveNo()">Nice try 😜</button>
+</div>
+
+<script>
+let musicStarted = false;
+
+function startMusic() {
+  if (!musicStarted) {
+    document.getElementById("bgMusic").play();
+    musicStarted = true;
+  }
+}
+
+const noTexts = [
+  "Nice try 😜",
+  "Really? 😂",
+  "But whyyy 🥺",
+  "No choice 😈",
+  "Almost clicked 😏"
+];
+
+function moveNo() {
+  const no = document.getElementById("no");
+  no.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
+  no.style.top = Math.random() * 85 + "vh";
+  no.style.left = Math.random() * 85 + "vw";
+}
+
+function yesClick() {
+  document.body.innerHTML = `
+    <div style="text-align:center;">
+      <h1 style="color:#ff4d6d;">🎉 GREAT CHOICE 🎉</h1>
+      <div class="dance">💃🕺</div>
+      <p>You chose wisely 😂❤️</p>
+      <p>Valentine confirmed 💐</p>
+    </div>`;
+}
+
+// floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+</script>
+
+</body>
+</html>
